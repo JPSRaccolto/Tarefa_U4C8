@@ -38,10 +38,10 @@ void pwm_init_gpio(uint gpio, uint wrap, float clkdiv) {
 // Mapeamento Y 
 int16_t mapeamento_Y(uint16_t valor_y) {
     int16_t valor_mapeado;
-    if (valor_y < 2020) {
-        valor_mapeado = 2020 - valor_y;
-    } else if (valor_y > 2020) {
-        valor_mapeado = valor_y - 2020;
+    if (valor_y < 2048) {
+        valor_mapeado = 2048 - valor_y;
+    } else if (valor_y > 2048) {
+        valor_mapeado = valor_y - 2048;
     } else {
         valor_mapeado = 0;
     }
@@ -51,10 +51,10 @@ int16_t mapeamento_Y(uint16_t valor_y) {
 // Mapeamento X 
 int16_t mapeamento_x(uint16_t valor_x) {
     int16_t valor_mapeado_x;
-    if (valor_x < 2065) {
-        valor_mapeado_x = 2065 - valor_x;
-    } else if (valor_x > 2065) {
-        valor_mapeado_x = valor_x - 2065;
+    if (valor_x < 2048) {
+        valor_mapeado_x = 2048 - valor_x;
+    } else if (valor_x > 2048) {
+        valor_mapeado_x = valor_x - 2048;
     } else{
         valor_mapeado_x = 0;
     }
@@ -74,7 +74,7 @@ void gpio_callback(uint gpio, uint32_t events) {
         cor = !cor;
         gpio_put(VERDE, cor);
         captura = (captura + 1) % 2; // Alterna entre 0 e 1
-   
+
 
     } else if (gpio == BOTAO_A) {
         controle_leds = !controle_leds;
@@ -134,10 +134,10 @@ int main() {
         adc_select_input(1);
         uint16_t valor_x = adc_read(); //lê os valores do joystick na posição x
         if (controle_leds) {  //Tomada de decisão com uma dead line para o valor do mapeamente, para o brilho não ficar fraco e para fazer o LED desligar completamente
-            if (mapeamento_x(valor_x) > 15 && mapeamento_Y(valor_y) > 10) {
+            if (mapeamento_x(valor_x) > 35 && mapeamento_Y(valor_y) > 35) {
                 pwm_set_gpio_level(AZUL, mapeamento_Y(valor_y));
                 pwm_set_gpio_level(VERMELHO, mapeamento_x(valor_x));
-            } else if(mapeamento_x(valor_x) < 15 || mapeamento_Y(valor_y) < 10){
+            } else if(mapeamento_x(valor_x) < 35 && mapeamento_Y(valor_y) < 35){
                 pwm_set_gpio_level(AZUL, 0);
                 pwm_set_gpio_level(VERMELHO, 0);
             }}
