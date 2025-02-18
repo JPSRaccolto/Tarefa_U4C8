@@ -23,7 +23,7 @@
 
 ## 📋 Descrição do Projeto
 Este projeto utiliza a placa BitDogLab com os seguintes componentes:
-- JoyStick (GPIOs 26,27, 22)
+- JoyStick (GPIOs 26, 27, 22)
 - LED RGB (GPIOs 11, 12 e 13)
 - Botão A (GPIO 5)
 - Display SSD1306 via I2C (GPIO 14 e GPIO 15)
